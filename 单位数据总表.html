@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单位数据总表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .tooltip {
+            position: relative;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 400px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 105%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>单位数据总表</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>HP</th>
+                <th>Speed</th>
+                <th>Attack</th>
+                <th>Range</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 1. 坦克 -->
+            <tr>
+                <td class="tooltip">
+                    1
+                    <span class="tooltiptext">只能攻击地面单位，移速较快但生命值较低</span>
+                </td>
+                <td>坦克</td>
+                <td>$350</td>
+                <td>210</td>
+                <td>1.10</td>
+                <td>25/1.25s</td>
+                <td>130</td>
+            </tr>
+            <!-- 2. 基础机甲 -->
+            <tr>
+                <td class="tooltip">
+                    2
+                    <span class="tooltiptext">只能攻击陆上单位，相比普通坦克生命值更高，但移动更缓慢</span>
+                </td>
+                <td>基础机甲</td>
+                <td>$600</td>
+                <td>500</td>
+                <td>0.80</td>
+                <td>23/0.61s</td>
+                <td>130</td>
+            </tr>
+            <!-- 3. 悬浮坦克 -->
+            <tr>
+                <td class="tooltip">
+                    3
+                    <span class="tooltiptext">轻装甲，能水上前进，可攻击空中和地面单位，直接作战性价比低</span>
+                </td>
+                <td>悬浮坦克</td>
+                <td>$450</td>
+                <td>150</td>
+                <td>1</td>
+                <td>23/1.5s</td>
+                <td>140</td>
+            </tr>
+            <!-- 4. 建造者 -->
+            <tr>
+                <td class="tooltip">
+                    4
+                    <span class="tooltiptext">建造和维修建筑物，不能攻击</span>
+                </td>
+                <td>建造者</td>
+                <td>$500</td>
+                <td>170</td>
+                <td>0.80</td>
+                <td>—</td>
+                <td>—</td>
+            </tr>
+            <!-- 5. 登陆艇 -->
+            <tr>
+                <td class="tooltip">
+                    5
+                    <span class="tooltiptext">运输单位，能在地面和水上移动，不能攻击</span>
+                </td>
+                <td>登陆艇</td>
+                <td>$600</td>
+                <td>450</td>
+                <td>0.89</td>
+                <td>—</td>
+                <td>—</td>
+            </tr>
+            <!-- 6. 侦察者 -->
+            <tr>
+                <td class="tooltip">
+                    6
+                    <span class="tooltiptext">中型装甲，低性价比单位，能够透过迷雾看得更远，能够在水面上移动，能攻击空中和地面单位</span>
+                </td>
+                <td>侦察者</td>
+                <td>$700</td>
+                <td>350</td>
+                <td>1</td>
+                <td>17/0.83s</td>
+                <td>110</td>
+            </tr>
+            <!-- 7. 重型坦克 -->
+            <tr>
+                <td class="tooltip">
+                    7
+                    <span class="tooltiptext">全副武装，能攻击地面单位，有一定对空能力</span>
+                </td>
+                <td>重型坦克</td>
+                <td>$800</td>
+                <td>600</td>
+                <td>0.80</td>
+                <td>50/1.16s</td>
+                <td>160</td>
+            </tr>
+            <!-- 8. 自行火炮 -->
+            <tr>
+                <td class="tooltip">
+                    8
+                    <span class="tooltiptext">只能攻击地面单位，远距离打击</span>
+                </td>
+                <td>自行火炮</td>
+                <td>$900</td>
+                <td>140</td>
+                <td>0.89</td>
+                <td>80/4s</td>
+                <td>290</td>
+            </tr>
+            <!-- 9. 防空机甲 -->
+            <tr>
+                <td class="tooltip">
+                    9
+                    <span class="tooltiptext">只能攻击空中单位，范围伤害，不能对地攻击</span>
+                </td>
+                <td>防空机甲</td>
+                <td>$900</td>
+                <td>500</td>
+                <td>0.80</td>
+                <td>115/2.20s</td>
+                <td>190</td>
+            </tr>
+            <!-- 10. 重型气垫坦克 -->
+            <tr>
+                <td class="tooltip">
+                    10
+                    <span class="tooltiptext">全副武装，能在水上移动，可以攻击空中和地面单位</span>
+                </td>
+                <td>重型气垫坦克</td>
+                <td>$1000</td>
+                <td>450</td>
+                <td>0.69</td>
+                <td>40/1.25s</td>
+                <td>160</td>
+            </tr>
+            <!-- 11. 等离子坦克 -->
+            <tr>
+                <td class="tooltip">
+                    11
+                    <span class="tooltiptext">拥有强大防御，只能攻击陆上单位，有防护盾（能被电击绕过）</span>
+                </td>
+                <td>等离子坦克</td>
+                <td>$1000</td>
+                <td>220</td>
+                <td>0.80</td>
+                <td>100/1.66s</td>
+                <td>165</td>
+            </tr>
+            <!-- 12. 激光坦克 -->
+            <tr>
+                <td class="tooltip">
+                    12
+                    <span class="tooltiptext">可攻击地面和空中单位，不能同时对付多个敌人，单发射击强但充能慢</span>
+                </td>
+                <td>激光坦克</td>
+                <td>$1600</td>
+                <td>400</td>
+                <td>0.60</td>
+                <td>350/6s</td>
+                <td>190</td>
+            </tr>
+            <!-- 13. 火炮机甲 -->
+            <tr>
+                <td class="tooltip">
+                    13
+                    <span class="tooltiptext">能攻击地面，射程远，可边开火边移动</span>
+                </td>
+                <td>火炮机甲</td>
+                <td>$1400</td>
+                <td>500</td>
+                <td>0.60</td>
+                <td>100/3.66s</td>
+                <td>290</td>
+            </tr>
+            <!-- 14. 防空导弹坦克 -->
+            <tr>
+                <td class="tooltip">
+                    14
+                    <span class="tooltiptext">远程对空导弹，轻型护盾</span>
+                </td>
+                <td>防空导弹坦克</td>
+                <td>$2500</td>
+                <td>1100</td>
+                <td>0.60</td>
+                <td>120×2/3.86s</td>
+                <td>340</td>
+            </tr>
+            <!-- 15. 重型火炮 -->
+            <tr>
+                <td class="tooltip">
+                    15
+                    <span class="tooltiptext">只能对地攻击，较远射程，自带较有限的激光防御</span>
+                </td>
+                <td>重型火炮</td>
+                <td>$3100</td>
+                <td>600</td>
+                <td>0.60</td>
+                <td>110/2.5s</td>
+                <td>310</td>
+            </tr>
+            <!-- 16. 战斗工程师 -->
+            <tr>
+                <td class="tooltip">
+                    16
+                    <span class="tooltiptext">可建造单位和T2建筑物，带重型装甲，可对地攻击，在水上可攻击潜艇，能自我修复并内置资源制造仪，能水上移动</span>
+                </td>
+                <td>战斗工程师</td>
+                <td>$3500</td>
+                <td>1000</td>
+                <td>1</td>
+                <td>30/0.83s，45/2.5s</td>
+                <td>170</td>
+            </tr>
+            <!-- 17. 猛犸坦克 -->
+            <tr>
+                <td class="tooltip">
+                    17
+                    <span class="tooltiptext">重型装甲，电击地面单位，对护盾攻击效果好，对接地建筑伤害稍低</span>
+                </td>
+                <td>猛犸坦克</td>
+                <td>$3900</td>
+                <td>2600</td>
+                <td>0.60</td>
+                <td>130/1.33s</td>
+                <td>190</td>
+            </tr>
+            <!-- 18. 移动炮塔 -->
+            <tr>
+                <td class="tooltip">
+                    18
+                    <span class="tooltiptext">能攻击地面，可原地部署并获得额外射程与防御</span>
+                </td>
+                <td>移动炮塔</td>
+                <td>$4500</td>
+                <td>800</td>
+                <td>0.40</td>
+                <td>110/1.16s</td>
+                <td>200</td>
+            </tr>
+            <!-- 19. 机枪机甲 -->
+            <tr>
+                <td class="tooltip">
+                    19
+                    <span class="tooltiptext">能攻击地面，高射速，开火速度逐渐加快，有防护盾（能被电击绕过）</span>
+                </td>
+                <td>机枪机甲</td>
+                <td>$5000</td>
+                <td>600</td>
+                <td>0.60</td>
+                <td>55/3.90s</td>
+                <td>210</td>
+            </tr>
+            <!-- 20. 特斯拉机甲 -->
+            <tr>
+                <td class="tooltip">
+                    20
+                    <span class="tooltiptext">对地闪电攻击，可绕过防护盾，对接地建筑物伤害较低</span>
+                </td>
+                <td>特斯拉机甲</td>
+                <td>$5200</td>
+                <td>2000</td>
+                <td>0.70</td>
+                <td>140×2/1.91s</td>
+                <td>170</td>
+            </tr>
+            <!-- 21. 等离子机甲 -->
+            <tr>
+                <td class="tooltip">
+                    21
+                    <span class="tooltiptext">可对空与对地，开火后需装填，射程较远</span>
+                </td>
+                <td>等离子机甲</td>
+                <td>$7000</td>
+                <td>1200</td>
+                <td>0.60</td>
+                <td>90/0.33s</td>
+                <td>310</td>
+            </tr>
+            <!-- 22. 重型防空机械机甲 -->
+            <tr>
+                <td class="tooltip">
+                    22
+                    <span class="tooltiptext">强远程对空，区域防空，弱陆攻</span>
+                </td>
+                <td>重型防空机械机甲</td>
+                <td>$8500</td>
+                <td>2500</td>
+                <td>0.61</td>
+                <td>35/1.5s，240×2/2.20s</td>
+                <td>310</td>
+            </tr>
+            <!-- 23. 喷火机甲 -->
+            <tr>
+                <td class="tooltip">
+                    23
+                    <span class="tooltiptext">范围火焰伤害，只能对地攻击，生命值高，能自我修复</span>
+                </td>
+                <td>喷火机甲</td>
+                <td>$12000</td>
+                <td>4500</td>
+                <td>0.60</td>
+                <td>12×2/0.08s</td>
+                <td>170</td>
+            </tr>
+            <!-- 24. 实验坦克 -->
+            <tr>
+                <td class="tooltip">
+                    24
+                    <span class="tooltiptext">全副武装，攻地面单位，对空能力弱</span>
+                </td>
+                <td>实验坦克</td>
+                <td>$14000</td>
+                <td>6000</td>
+                <td>0.30</td>
+                <td>120×4/2.66s，60×2/3.16s</td>
+                <td>310</td>
+            </tr>
+            <!-- 25. 概念型悬浮坦克 -->
+            <tr>
+                <td class="tooltip">
+                    25
+                    <span class="tooltiptext">全副武装带护盾，可攻击地空单位，能水上移动</span>
+                </td>
+                <td>概念型悬浮坦克</td>
+                <td>$21000</td>
+                <td>3500</td>
+                <td>0.60</td>
+                <td>380/1s</td>
+                <td>180</td>
+            </tr>
+            <!-- 26. 实验型战斗蜘蛛 -->
+            <tr>
+                <td class="tooltip">
+                    26
+                    <span class="tooltiptext">拥有超强防御，但移动缓慢，能建造单位与建筑物，自动修复附近的单位，自带激光防御，能在水上移动，自我修复并内置资源制造仪，死亡后核爆（如果未禁止核弹）</span>
+                </td>
+                <td>实验型战斗蜘蛛</td>
+                <td>$70000</td>
+                <td>10000</td>
+                <td>0.5</td>
+                <td>80×2/0.66s，190/2.16s</td>
+                <td>290</td>
+            </tr>
+            <!-- 27. 轻型武装直升机 -->
+            <tr>
+                <td class="tooltip">
+                    27
+                    <span class="tooltiptext">非常弱，只能攻击地面单位，飞行速度慢</span>
+                </td>
+                <td>轻型武装直升机</td>
+                <td>$250</td>
+                <td>50</td>
+                <td>1.10</td>
+                <td>10/0.66s</td>
+                <td>120</td>
+            </tr>
+            <!-- 28. 拦截机 -->
+            <tr>
+                <td class="tooltip">
+                    28
+                    <span class="tooltiptext">移动速度快，只能攻击空中单位</span>
+                </td>
+                <td>拦截机</td>
+                <td>$600</td>
+                <td>250</td>
+                <td>2.40</td>
+                <td>25/0.66s</td>
+                <td>170</td>
+            </tr>
+            <!-- 29. 直升机 -->
+            <tr>
+                <td class="tooltip">
+                    29
+                    <span class="tooltiptext">可以攻击地面和空中单位，直接作战性价比低</span>
+                </td>
+                <td>直升机</td>
+                <td>$700</td>
+                <td>150</td>
+                <td>1.79</td>
+                <td>17/1s</td>
+                <td>130</td>
+            </tr>
+            <!-- 30. 武装直升机 -->
+            <tr>
+                <td class="tooltip">
+                    30
+                    <span class="tooltiptext">可以攻击地面和空中单位，直接作战性价比低</span>
+                </td>
+                <td>武装直升机</td>
+                <td>$800</td>
+                <td>500</td>
+                <td>1.79</td>
+                <td>17/1s</td>
+                <td>130</td>
+            </tr>
+            <!-- 31. 运输机 -->
+            <tr>
+                <td class="tooltip">
+                    31
+                    <span class="tooltiptext">运输单位，不能攻击</span>
+                </td>
+                <td>运输机</td>
+                <td>$800</td>
+                <td>500</td>
+                <td>2.29</td>
+                <td>—</td>
+                <td>—</td>
+            </tr>
+            <!-- 32. 重型拦截机 -->
+            <tr>
+                <td class="tooltip">
+                    32
+                    <span class="tooltiptext">移动快，只攻空中单位，带护盾（电击可绕）</span>
+                </td>
+                <td>重型拦截机</td>
+                <td>$1200</td>
+                <td>150</td>
+                <td>2.5</td>
+                <td>12×2/3.66s</td>
+                <td>170</td>
+            </tr>
+            <!-- 33. 间谍无人机 -->
+            <tr>
+                <td class="tooltip">
+                    33
+                    <span class="tooltiptext">无法攻击，可以透过迷雾看的更广，厚重的生命值和渐加速的速度，可以自我修复</span>
+                </td>
+                <td>间谍无人机</td>
+                <td>$1500</td>
+                <td>1500</td>
+                <td>2.40</td>
+                <td>0</td>
+                <td>—</td>
+            </tr>
+            <!-- 34. 两栖喷气机 -->
+            <tr>
+                <td class="tooltip">
+                    34
+                    <span class="tooltiptext">在空中或水下发射闪电攻击，电击可绕过防护盾，对接地建筑物伤害稍低</span>
+                </td>
+                <td>两栖喷气机</td>
+                <td>$2000</td>
+                <td>530</td>
+                <td>1.39</td>
+                <td>45×2/2.25s</td>
+                <td>170</td>
+            </tr>
+            <!-- 35. 导弹飞艇 -->
+            <tr>
+                <td class="tooltip">
+                    35
+                    <span class="tooltiptext">有范围伤害的对地对空导弹，开火后需装填，自我修复</span>
+                </td>
+                <td>导弹飞艇</td>
+                <td>$3900</td>
+                <td>1000</td>
+                <td>1.39</td>
+                <td>80/1.83s</td>
+                <td>180</td>
+            </tr>
+            <!-- 36. 轰炸机 -->
+            <tr>
+                <td class="tooltip">
+                    36
+                    <span class="tooltiptext">重装甲但速度慢，投掷炸弹后需装填，攻击潜艇时伤害较低</span>
+                </td>
+                <td>轰炸机</td>
+                <td>$4000</td>
+                <td>3000</td>
+                <td>0.85</td>
+                <td>370/0.5s，70/0.5s</td>
+                <td>45</td>
+            </tr>
+            <!-- 37. AA激光射束战机 -->
+            <tr>
+                <td class="tooltip">
+                    37
+                    <span class="tooltiptext">拥有对空的激光粒子束武器，可直接破盾破甲，不能攻击陆地，速度慢但可使用加速装置加速</span>
+                </td>
+                <td>AA激光射束战机</td>
+                <td>$6000</td>
+                <td>2500</td>
+                <td>1</td>
+                <td>22/0.08s</td>
+                <td>280</td>
+            </tr>
+            <!-- 38. 火蜂战机 -->
+            <tr>
+                <td class="tooltip">
+                    38
+                    <span class="tooltiptext">全副武装，可以对空攻击，中级对空能力，开火后需要重新装填，自我修复</span>
+                </td>
+                <td>火蜂战机</td>
+                <td>$12000</td>
+                <td>4900</td>
+                <td>1.10</td>
+                <td>22×2/0.41s，45×6/1.5s</td>
+                <td>210</td>
+            </tr>
+            <!-- 39. 飞行堡垒 -->
+            <tr>
+                <td class="tooltip">
+                    39
+                    <span class="tooltiptext">有运输能力，能制造单位，可以对空，降落后可对地攻击，能自我修复并内置资源制造仪</span>
+                </td>
+                <td>飞行堡垒</td>
+                <td>$30000</td>
+                <td>8000</td>
+                <td>1.10</td>
+                <td>35×2/0.41s</td>
+                <td>210</td>
+            </tr>
+            <!-- 40. 机枪艇 -->
+            <tr>
+                <td class="tooltip">
+                    40
+                    <span class="tooltiptext">移动速度快，能攻击地面单位</span>
+                </td>
+                <td>机枪艇</td>
+                <td>$300</td>
+                <td>170</td>
+                <td>1.5</td>
+                <td>12/1s</td>
+                <td>120</td>
+            </tr>
+            <!-- 41. 水下探测器 -->
+            <tr>
+                <td class="tooltip">
+                    41
+                    <span class="tooltiptext">非常弱，只能使用轻型鱼雷攻击</span>
+                </td>
+                <td>水下探测器</td>
+                <td>$450</td>
+                <td>80</td>
+                <td>0.69</td>
+                <td>10/1.66s</td>
+                <td>100</td>
+            </tr>
+            <!-- 42. 海上建造者 -->
+            <tr>
+                <td class="tooltip">
+                    42
+                    <span class="tooltiptext">在海岸线周围建造部分建筑物，不能攻击</span>
+                </td>
+                <td>海上建造者</td>
+                <td>$500</td>
+                <td>500</td>
+                <td>0.80</td>
+                <td>—</td>
+                <td>—</td>
+            </tr>
+            <!-- 43. 潜水艇 -->
+            <tr>
+                <td class="tooltip">
+                    43
+                    <span class="tooltiptext">下潜防多数单位攻击，攻水面单位，可浮出攻地空单位</span>
+                </td>
+                <td>潜水艇</td>
+                <td>$800</td>
+                <td>260</td>
+                <td>0.80</td>
+                <td>42/3s</td>
+                <td>250</td>
+            </tr>
+            <!-- 44. 导弹舰 -->
+            <tr>
+                <td class="tooltip">
+                    44
+                    <span class="tooltiptext">可攻击地面和空中单位，带有轻型反潜艇鱼雷</span>
+                </td>
+                <td>导弹舰</td>
+                <td>$900</td>
+                <td>350</td>
+                <td>1.20</td>
+                <td>62/2.83s</td>
+                <td>200</td>
+            </tr>
+            <!-- 45. 战列舰 -->
+            <tr>
+                <td class="tooltip">
+                    45
+                    <span class="tooltiptext">中程对地攻击</span>
+                </td>
+                <td>战列舰</td>
+                <td>$1500</td>
+                <td>1200</td>
+                <td>0.80</td>
+                <td>65/2s，65/2.03s</td>
+                <td>240</td>
+            </tr>
+            <!-- 46. 重型防空舰 -->
+            <tr>
+                <td class="tooltip">
+                    46
+                    <span class="tooltiptext">仅能攻击空中单位，拥有大攻击范围并有溅射伤害，重型装甲与护盾</span>
+                </td>
+                <td>重型防空舰</td>
+                <td>$3500</td>
+                <td>1800</td>
+                <td>0.69</td>
+                <td>70×2/2.33s</td>
+                <td>320</td>
+            </tr>
+            <!-- 47. 重型潜艇 -->
+            <tr>
+                <td class="tooltip">
+                    47
+                    <span class="tooltiptext">重型装甲，可发射鱼雷，不能攻击水面以外的单位</span>
+                </td>
+                <td>重型潜艇</td>
+                <td>$5500</td>
+                <td>1000</td>
+                <td>0.85</td>
+                <td>95×2/1.66s</td>
+                <td>210</td>
+            </tr>
+            <!-- 48. 重型战列舰 -->
+            <tr>
+                <td class="tooltip">
+                    48
+                    <span class="tooltiptext">远距离对地攻击，有防空能力，可发射反潜艇鱼雷</span>
+                </td>
+                <td>重型战列舰</td>
+                <td>$6000</td>
+                <td>4000</td>
+                <td>0.69</td>
+                <td>110×2/2.66s，65/3s，50×2/2.66s</td>
+                <td>290</td>
+            </tr>
+            <!-- 49. 重型导弹舰 -->
+            <tr>
+                <td class="tooltip">
+                    49
+                    <span class="tooltiptext">能攻击地面和空中单位，超远射程</span>
+                </td>
+                <td>重型导弹舰</td>
+                <td>$18000</td>
+                <td>3000</td>
+                <td>0.5</td>
+                <td>250×4/3s</td>
+                <td>390</td>
+            </tr>
+            <!-- 50. 鹦鹉螺号 -->
+            <tr>
+                <td class="tooltip">
+                    50
+                    <span class="tooltiptext">重型武器和装甲，可攻击舰艇，可在水面和陆地行动，浮出水面后攻击陆上和空中单位</span>
+                </td>
+                <td>鹦鹉螺号</td>
+                <td>$18000</td>
+                <td>4000</td>
+                <td>0.44</td>
+                <td>50×6/5s</td>
+                <td>240</td>
+            </tr>
+            <!-- 51. 航空母舰 -->
+            <tr>
+                <td class="tooltip">
+                    51
+                    <span class="tooltiptext">重型武器和装甲，可建造空军单位（2倍建造速度），内置激光防御 & 修复湾，自带高射炮防空，内置资源制造仪，可以制造反核导弹，死亡后核爆（如果未禁止核弹）</span>
+                </td>
+                <td>航空母舰</td>
+                <td>$30000</td>
+                <td>6000</td>
+                <td>0.5</td>
+                <td>80×2/1.66s，65/3s，110×2/1.66s</td>
+                <td>290</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

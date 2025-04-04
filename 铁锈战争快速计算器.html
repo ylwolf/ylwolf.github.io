@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>铁锈战争快速计算器</title>
+    <style>
+        body { font-family: Consolas, monospace; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #333; }
+        .input-group { margin: 10px 0; }
+        input { padding: 5px; width: 200px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .hidden { display: none; }
+        .warning { color: red; }
+        iframe { width: 100%; height: 500px; }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>铁锈战争快速计算器</h2>
+        <button onclick="showSection('economy')">计算经济</button>
+        <button onclick="showSection('continuous')">计算经济续兵</button>
+        <button onclick="showSection('database')">单位数据库</button>
+        <button onclick="loadExternalPage()">单位数据总表</button> 
+        <button onclick="location.reload()">重置</button>
+    </div>
+
+    <!-- 经济计算模块 -->
+    <div id="economy" class="section hidden">
+        <h3>经济计算器</h3>
+        <div class="input-group">
+            <label>资源类型（a.绿蛋b.黄蛋c.红蛋d.绿矿e.黄矿f.红矿g.超频）: </label>
+            <input type="text" id="resourceTypes" placeholder="例如: abc" autocomplete="off"><!--ai 更改-->
+            
+
+        </div>
+        <div class="input-group">
+            <label>数量（空格分隔）: </label>
+            <input type="text" id="resourceCounts" placeholder="例如: 2 3 4" autocomplete="off"><!--ai 更改-->
+        </div>
+        <button onclick="calculateEconomy()">计算</button>
+        <div id="economyResult"></div>
+    </div>
+
+    <!-- 续兵计算模块 -->
+    <div id="continuous" class="section hidden">
+        <h3>续兵计算器</h3>
+        <div class="input-group">
+            <button onclick="showCommonUnits()">显示常用单位</button>
+            <button onclick="showAllUnits()">显示全部单位</button>
+        </div>
+        <div class="input-group">
+            <select id="unitList" onchange="showUnitInfo()"></select>
+        </div>
+        <div class="input-group">
+            <label>经济值 (+): </label>
+            <input type="number" id="economyValue" step="0.1" autocomplete="off"><!--ai 更改-->
+        </div>
+        <div class="input-group">
+            <label>或手动输入:</label>
+            <input type="number" id="customCost" placeholder="单位造价" autocomplete="off"><!--ai 更改-->
+            <input type="number" id="customTime" placeholder="生产时间" autocomplete="off"><!--ai 更改-->
+        </div>
+        <button onclick="calculateContinuous()">计算</button>
+        <div id="continuousResult"></div>
+    </div>
+
+    <!-- 单位数据库 -->
+    <div id="database" class="section hidden">
+        <h3>单位数据库</h3>
+        <div id="unitTables"></div>
+    </div>
+
+    <!-- 外部页面内容容器 -->
+    <iframe id="externalContent" class="section hidden"></iframe>
+
+    <script>
+    // 单位数据库
+    const unit_db = [
+        // 地面单位（26个）
+        {name: "坦克", cost: 42.17, category: '地面'},
+        {name: "基础机甲", cost: 43.48, category: '地面'},
+        {name: "悬浮坦克", cost: 54.22, category: '地面'},
+        {name: "建造者", cost: 60.24, category: '地面'},
+        {name: "登陆艇", cost: 109.09, category: '地面'},
+        {name: "侦察者", cost: 63.06, category: '地面'},
+        {name: "重型坦克", cost: 52.98, category: '地面'},
+        {name: "自行火炮", cost: 75.63, category: '地面'},
+        {name: "防空机甲", cost: 91.84, category: '地面'},
+        {name: "重型气垫坦克", cost: 60.24, category: '地面'},
+        {name: "等离子坦克", cost: 54.05, category: '地面'},
+        {name: "激光坦克", cost: 125.00, category: '地面'},
+        {name: "火炮机甲", cost: 50.54, category: '地面'},
+        {name: "防空导弹坦克", cost: 75.08, category: '地面'},
+        {name: "重型火炮", cost: 93.09, category: '地面'},
+        {name: "战斗工程师", cost: 240.38, category: '地面'},
+        {name: "猛犸坦克", cost: 140.79, category: '地面'},
+        {name: "移动炮塔", cost: 162.45, category: '地面'},
+        {name: "机枪机甲", cost: 180.51, category: '地面'},
+        {name: "特斯拉机甲", cost: 187.73, category: '地面'},
+        {name: "等离子机甲", cost: 252.71, category: '地面'},
+        {name: "重型防空机械机甲", cost: 306.86, category: '地面'},
+        {name: "喷火机甲", cost: 360.36, category: '地面'},
+        {name: "实验坦克", cost: 168.07, category: '地面'},
+        {name: "概念型悬浮坦克", cost: 252.10, category: '地面'},
+        {name: "实验型战斗蜘蛛", cost: 840.34, category: '地面'},
+
+        // 空中单位（13个）
+        {name: "轻型武装直升机", cost: 45.45, category: '空中'},
+        {name: "拦截机", cost: 72.29, category: '空中'},
+        {name: "直升机", cost: 50.72, category: '空中'},
+        {name: "武装直升机", cost: 48.19, category: '空中'},
+        {name: "运输机", cost: 48.19, category: '空中'},
+        {name: "重型拦截机", cost: 72.29, category: '空中'},
+        {name: "间谍无人机", cost: 187.50, category: '空中'},
+        {name: "两栖喷气机", cost: 120.48, category: '空中'},
+        {name: "导弹飞艇", cost: 163.87, category: '空中'},
+        {name: "轰炸机", cost: 60.06, category: '空中'},
+        {name: "AA激光射束战机", cost: 171.43, category: '空中'},
+        {name: "火蜂战机", cost: 144.06, category: '空中'},
+        {name: "飞行堡垒", cost: 360.36, category: '空中'},
+
+        // 海上单位（12个）
+        {name: "机枪艇", cost: 90.91, category: '海上'},
+        {name: "水下探测器", cost: 136.36, category: '海上'},
+        {name: "海上建造者", cost: 30.12, category: '海上'},
+        {name: "潜水艇", cost: 48.19, category: '海上'},
+        {name: "导弹舰", cost: 54.22, category: '海上'},
+        {name: "战列舰", cost: 90.36, category: '海上'},
+        {name: "重型防空舰", cost: 84.13, category: '海上'},
+        {name: "重型潜艇", cost: 132.21, category: '海上'},
+        {name: "重型战列舰", cost: 144.23, category: '海上'},
+        {name: "重型导弹舰", cost: 432.69, category: '海上'},
+        {name: "鹦鹉螺号", cost: 324.32, category: '海上'},
+        {name: "航空母舰", cost: 468.02, category: '海上'}
+    ];
+
+
+        // 常用单位列表
+        const commonUnits = [0,1,2,6,10,16,18,22,27,29,31,33,34,44,11,12,14,20,35,36,38,46,47];
+
+        // 初始化
+        function init() {
+            populateUnitSelector();
+            buildDatabaseTables();
+        }
+
+        // 显示指定模块
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // 经济计算
+        function calculateEconomy() {
+            const types = document.getElementById('resourceTypes').value.toLowerCase();
+            const counts = document.getElementById('resourceCounts').value.split(' ').map(Number);
+            
+            const prices = {
+                'a':2, 'b':7, 'c':14, 'd':8, 'e':12, 'f':20, 'g':30
+            };
+
+            let total = 0;
+            let calculation = [];
+            
+            for(let i = 0; i < types.length; i++) {
+                const type = types[i];
+                const count = counts[i] || 0;
+                if(prices[type]) {
+                    total += count * prices[type];
+                    calculation.push(`${count}×${prices[type]}`);
+                }
+            }
+
+            const result = `
+                总经济: ${total.toFixed(2)}<br>
+                1倍速: ${total.toFixed(2)} | 实际: ${(total*1.5).toFixed(2)}<br>
+                2.5倍速: ${(total*2.5).toFixed(2)} | 实际: ${(total*1.5*2.5).toFixed(2)}
+            `;
+            
+            document.getElementById('economyResult').innerHTML = result;
+        }
+
+        // 续兵计算
+        function calculateContinuous() {
+            const unitId = document.getElementById('unitList').value;
+            const economy = parseFloat(document.getElementById('economyValue').value);
+            const customCost = parseFloat(document.getElementById('customCost').value);
+            const customTime = parseFloat(document.getElementById('customTime').value);
+
+            let costPerSecond;
+            if (customCost && customTime) {
+                costPerSecond = customCost / customTime;
+            } else if (unitId >= 0) {
+                costPerSecond = unit_db[unitId].cost;
+            } else {
+                showError("请输入有效数据");
+                return;
+            }
+
+            if (economy > 0 && costPerSecond > 0) {
+                const factories = (economy * 1.5) / costPerSecond;
+                const result = `可维持 ${factories.toFixed(2)} 个工厂连续生产`;
+                document.getElementById('continuousResult').innerHTML = result;
+            }
+        }
+
+        // 构建单位选择器
+        function populateUnitSelector() {
+            const select = document.getElementById('unitList');
+            select.innerHTML = '';
+            commonUnits.forEach(index => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${index}. ${unit_db[index].name} (${unit_db[index].cost.toFixed(2)})`;
+                select.appendChild(option);
+            });
+        }
+
+        // 构建完整数据库表格
+        function buildDatabaseTables() {
+            const categories = {
+                '地面': [],
+                '空中': [],
+                '海上': []
+            };
+
+            unit_db.forEach((unit, index) => {
+                categories[unit.category].push({...unit, index});
+            });
+
+            let html = '';
+            for (const [category, units] of Object.entries(categories)) {
+                html += `
+                    <h4>${category}单位</h4>
+                    <table>
+                        <tr><th>编号</th><th>名称</th><th>经济需求</th></tr>
+                        ${units.map(unit => `
+                            <tr>
+                                <td>${unit.index}</td>
+                                <td>${unit.name}</td>
+                                <td>${unit.cost.toFixed(2)}</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                `;
+            }
+            document.getElementById('unitTables').innerHTML = html;
+        }
+
+        // 错误处理
+        function showError(message) {
+            const resultDiv = document.getElementById('continuousResult');
+            resultDiv.innerHTML = `<span class="warning">${message}</span>`;
+            setTimeout(() => resultDiv.innerHTML = '', 3000);
+        }
+
+        // 初始化
+        init();
+
+        // 在原有代码基础上增加以下函数和事件监听
+        // 经济计算模块回车处理
+        function handleEconomyKeyPress(e) {
+            if (e.keyCode === 13) { // 回车键
+                e.preventDefault();
+                const currentId = e.target.id;
+                
+                if (currentId === 'resourceTypes') {
+                    document.getElementById('resourceCounts').focus();
+                } else {
+                    calculateEconomy();
+                }
+            }
+        }
+
+        // 续兵计算模块回车处理
+        function handleContinuousKeyPress(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                const inputs = Array.from(document.querySelectorAll('#continuous input'));
+                const currentIndex = inputs.indexOf(e.target);
+                
+                if (currentIndex < inputs.length - 1) {
+                    inputs[currentIndex + 1].focus();
+                } else {
+                    calculateContinuous();
+                }
+            }
+        }
+
+        // 初始化函数增加事件监听
+        function init() {
+            populateUnitSelector();
+            buildDatabaseTables();
+            
+            // 经济模块输入框绑定
+            document.getElementById('resourceTypes').addEventListener('keypress', handleEconomyKeyPress);
+            document.getElementById('resourceCounts').addEventListener('keypress', handleEconomyKeyPress);
+            
+            // 续兵模块输入框绑定
+            document.querySelectorAll('#continuous input').forEach(input => {
+                input.addEventListener('keypress', handleContinuousKeyPress);
+            });
+        }
+    </script>
+
+    <script>
+        // 修改showSection函数
+        function showSection(sectionId) {
+            // 只隐藏内容区块
+            document.querySelectorAll('.content-section').forEach(div => {
+                div.classList.add('hidden');
+            });
+            
+            // 显示目标区块
+            const section = document.getElementById(sectionId);
+            if(section) {
+                section.classList.remove('hidden');
+                
+                // 自动聚焦到第一个输入框
+                const firstInput = section.querySelector('input');
+                if (firstInput) firstInput.focus();
+            }
+        }
+
+        // 函数：调用外部HTML文件
+        function loadExternalPage() {
+            const iframe = document.getElementById('externalContent');
+            iframe.src = '单位数据总表.html'; // 替换为你的外部HTML文件名
+            iframe.classList.remove('hidden');
+        }
+
+    </script>
+
+</body>
+</html>
